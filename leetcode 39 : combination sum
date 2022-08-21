@@ -1,0 +1,33 @@
+class Solution {
+public: 
+    void solve(vector<int>& candidates, vector<vector<int> >& ans, vector<int> output, int target, int n, int ine) {
+        if(target == 0) {
+            ans.push_back(output); 
+            return; 
+        } 
+        
+        if(target < 0) {
+            return; 
+        } 
+        
+        for(int i=ine; i<n; i++) { 
+            if(target - candidates[i] >= 0) {
+              output.push_back(candidates[i]); 
+              solve(candidates, ans, output, target-candidates[i], n, i); 
+              output.pop_back(); 
+            }
+        }
+    } 
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) { 
+        int n=candidates.size(); 
+        
+        vector<vector<int> > ans; 
+        
+        vector<int> output; 
+        
+        solve(candidates, ans, output, target, n, 0); 
+        
+        return ans; 
+    }
+}; 
