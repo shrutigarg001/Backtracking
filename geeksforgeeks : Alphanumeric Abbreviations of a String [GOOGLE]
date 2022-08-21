@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std; 
+
+void num(string str, string output, int n, int index) {
+   if(index == n) {
+      cout << output << endl; 
+      return; 
+   } 
+
+  char ch=str[index]; 
+  output.push_back(ch); 
+
+  num(str, output, n, index+1); 
+
+  output.pop_back(); 
+
+  int count=1; 
+
+  if(!output.empty()) {
+     if(isdigit(output.back())) {
+        count += (int)(output.back() - '0'); 
+     }
+  } 
+
+  char backdigit=output.back(); 
+
+  output.pop_back(); 
+  char digit=(char)(count+'0'); 
+  output.push_back(digit); 
+
+  num(str, output, n, index+1); 
+}
+  
+int main() {
+    string str="ABC"; 
+
+    string output=""; 
+    num(str, output, 3, 0); 
+    return 0;
+} 
+
+// time complexity : o(2^n) 
+// space complexity : o(2^n) 
