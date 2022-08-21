@@ -1,0 +1,28 @@
+class Solution {
+public: 
+    int letter(string tiles, vector<bool>& visited, set<string>& s, string &output) {
+        for(int i=0; i<tiles.length(); i++) { 
+            if(visited[i] == 0) { 
+            char ch=tiles[i]; 
+            output.push_back(ch); 
+            visited[i] = 1; 
+            s.insert(output); 
+            letter(tiles, visited, s, output); 
+            output.pop_back(); 
+            visited[i] = 0; 
+            }
+        } 
+        
+        return s.size(); 
+    } 
+    
+    int numTilePossibilities(string tiles) {
+       vector<bool> visited(0); 
+        
+        set<string> s; 
+        
+        string output=""; 
+        
+        return letter(tiles, visited, s, output); 
+    }
+}; 
