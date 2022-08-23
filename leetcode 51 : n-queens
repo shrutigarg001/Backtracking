@@ -1,0 +1,69 @@
+class Solution {
+public: 
+    bool safe(int row, int col, vector<string>& board, int n) { 
+        int x=row; 
+        int y=col; 
+        //column wise 
+        
+        while(y >= 0) {
+            if(board[x][y] == 'Q') {
+                return false; 
+            } 
+            y--; 
+        } 
+        
+        //upper diagonal 
+        
+        x = row; 
+        y = col; 
+        while((x >= 0) && (y >= 0)) {
+            if(board[x][y] == 'Q') {
+                return false; 
+            } 
+            x--; 
+            y--; 
+        } 
+        
+        //lower diagonal 
+        x = row; 
+        y = col; 
+        while((x < n) && (y >= 0)) {
+            if(board[x][y] == 'Q') {
+                return false; 
+            } 
+            x++; 
+            y--; 
+        } 
+        
+        return true; 
+    } 
+    
+    void solve(vector<vector<string>>& ans, vector<string>& board, int n, int col) {
+        if(col == n) {
+            ans.push_back(board); 
+        } 
+        
+        for(int row=0; row<n; row++) {
+            if(safe(row, col, board, n) == true) {
+                board[row][col] = 'Q';  
+                solve(ans, board, n, col+1); 
+                board[row][col] = '.';
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;  
+        
+        string str=""; 
+        
+        for(int i=0; i<n; i++) {
+            str.push_back('.'); 
+        } 
+        
+        vector<string> board(n, str); 
+        solve(ans, board, n,  0); 
+        
+        return ans; 
+        }
+     
+}; 
